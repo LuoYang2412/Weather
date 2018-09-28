@@ -10,6 +10,8 @@
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:gravity="center_vertical"
+        android:onClick="onClick"
+        android:paddingLeft="8dp"
         android:textColor="@android:color/black"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"

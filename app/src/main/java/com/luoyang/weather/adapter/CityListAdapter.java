@@ -13,17 +13,14 @@ import com.luoyang.weather.modle.CityBean;
 import java.util.ArrayList;
 
 public class CityListAdapter extends RecyclerView.Adapter<CityListViewHolder> {
-    private ArrayList<CityBean> data = new ArrayList<>();
+    public CityListAdapter(ArrayList<CityBean> data) {
+        this.data = data;
+    }
+
+    private ArrayList<CityBean> data;
 
     public ArrayList<CityBean> getData() {
         return data;
-    }
-
-    public void setData(ArrayList<CityBean> data) {
-        if (data != null && data.size() > 0) {
-            this.data.clear();
-            this.data.addAll(data);
-        }
     }
 
     @NonNull
@@ -36,6 +33,7 @@ public class CityListAdapter extends RecyclerView.Adapter<CityListViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull CityListViewHolder cityListViewHolder, int i) {
         cityListViewHolder.cityName.setText(data.get(i).getName());
+        cityListViewHolder.cityName.setTag(data.get(i).getCode());
     }
 
     @Override
