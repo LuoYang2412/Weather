@@ -7,7 +7,7 @@ public class Event {
         this.message = message;
     }
 
-    public EventMessage getTag() {
+    public EventMessage getMessage() {
         return message;
     }
 }

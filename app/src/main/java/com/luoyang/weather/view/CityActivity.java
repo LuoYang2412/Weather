@@ -59,7 +59,7 @@ public class CityActivity extends AppCompatActivity {
     }
 
     private void initView() {
-        lodingTextView = findViewById(R.id.textView2);
+        lodingTextView = findViewById(R.id.loading_textView2);
 
         cityRecyclerView = findViewById(R.id.recyclerView);
         cityRecyclerView.setVisibility(View.GONE);
@@ -80,7 +80,7 @@ public class CityActivity extends AppCompatActivity {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void EventReceiver(Event event) {
-        switch (event.getTag()) {
+        switch (event.getMessage()) {
             case GET_CITY_DATA_SUCCESS:
                 cityRecyclerView.setVisibility(View.VISIBLE);
                 lodingTextView.setVisibility(View.GONE);

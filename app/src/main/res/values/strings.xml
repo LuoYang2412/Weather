@@ -1,4 +1,6 @@
 <resources>
     <string name="app_name">Weather</string>
     <string name="loding_life">如果走得越快生命流逝得越快，你还会匆匆忙忙吗？</string>
+    <string name="fly_life">有多久没有仰望浩瀚的星空了，是什么占据着你自由的灵魂呢</string>
+    <string name="feel_world">靠近一点，世界更清晰</string>
 </resources>
