@@ -2,6 +2,7 @@ package com.luoyang.weather;
 
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 
 import com.luoyang.weather.view.CityActivity;
@@ -12,7 +13,10 @@ public class StartActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
-        getSupportActionBar().hide();
+        ActionBar supportActionBar = getSupportActionBar();
+        if (supportActionBar != null) {
+            supportActionBar.hide();
+        }
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
