@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.constraint.Group;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
@@ -62,6 +63,11 @@ public class WeatherActivity extends AppCompatActivity {
     }
 
     private void initView() {
+        ActionBar supportActionBar = getSupportActionBar();
+        if (supportActionBar != null) {
+            supportActionBar.setDisplayHomeAsUpEnabled(true);
+        }
+
         lodingTextView = findViewById(R.id.loading_textView3);
         cityNameTextView = findViewById(R.id.cityName_textView4);
         weatherTextView = findViewById(R.id.weather_textView3);
@@ -69,6 +75,12 @@ public class WeatherActivity extends AppCompatActivity {
         maxTempTextView = findViewById(R.id.maxTemp_textView8);
         weatherGroup = findViewById(R.id.weather_group);
         weatherGroup.setVisibility(View.GONE);
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return super.onSupportNavigateUp();
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

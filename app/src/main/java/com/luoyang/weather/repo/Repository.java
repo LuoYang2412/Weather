@@ -8,7 +8,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 /**
- * 数据厂库类
+ * 数据仓库类
  *
  * @author LuoYang
  */

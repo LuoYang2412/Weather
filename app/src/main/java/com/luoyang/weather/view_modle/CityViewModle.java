@@ -48,32 +48,8 @@ public class CityViewModle {
                 String data = Repository.getInstance().getCityData();
                 try {
                     GsonBuilder gsonBuilder = new GsonBuilder();
-                    //=======GSON高级用法===========//
-                    gsonBuilder.registerTypeAdapter(new TypeToken<ArrayList<CityBean>>() {
-                    }.getType(), new JsonDeserializer<ArrayList<CityBean>>() {
-                        ArrayList<CityBean> list = new ArrayList<>();
-                        Gson mGson = new Gson();
+                    setGsonBuilder(gsonBuilder);
 
-                        @Override
-                        public ArrayList<CityBean> deserialize(JsonElement json, Type typeOfT,
-                                                               JsonDeserializationContext context) throws JsonParseException {
-                            if (json.isJsonObject()) {
-                                JsonElement zone = json.getAsJsonObject().get("zone");
-                                if (zone == null) {//没有下属，是具体城市
-                                    list.add(mGson.fromJson(json, CityBean.class));
-                                } else {//有下属，是行政区域。省，市，县
-                                    deserialize(zone, typeOfT, context);
-                                }
-                            } else {
-                                JsonArray jsonArray = json.getAsJsonArray();
-                                for (int i = 0; i < jsonArray.size(); i++) {
-                                    deserialize(jsonArray.get(i), typeOfT, context);
-                                }
-                            }
-                            return list;
-                        }
-                    });
-                    //=======GSON高级用法===========//
                     ArrayList<CityBean> tempCityBeans = gsonBuilder.create().fromJson(data, new TypeToken<ArrayList<CityBean>>() {
                     }.getType());
                     cityBeans.clear();
@@ -83,6 +59,35 @@ public class CityViewModle {
                     errorMsg = data + "----" + e.getMessage();
                     EventBus.getDefault().post(new Event(EventMessage.GET_CITY_DATA_ERROR));
                 }
+            }
+
+            private void setGsonBuilder(GsonBuilder gsonBuilder) {
+                //=======GSON高级用法===========//
+                gsonBuilder.registerTypeAdapter(new TypeToken<ArrayList<CityBean>>() {
+                }.getType(), new JsonDeserializer<ArrayList<CityBean>>() {
+                    ArrayList<CityBean> list = new ArrayList<>();
+                    Gson mGson = new Gson();
+
+                    @Override
+                    public ArrayList<CityBean> deserialize(JsonElement json, Type typeOfT,
+                                                           JsonDeserializationContext context) throws JsonParseException {
+                        if (json.isJsonObject()) {
+                            JsonElement zone = json.getAsJsonObject().get("zone");
+                            if (zone == null) {//没有下属，是具体城市
+                                list.add(mGson.fromJson(json, CityBean.class));
+                            } else {//有下属，是行政区域。省，市，县
+                                deserialize(zone, typeOfT, context);
+                            }
+                        } else {
+                            JsonArray jsonArray = json.getAsJsonArray();
+                            for (int i = 0; i < jsonArray.size(); i++) {
+                                deserialize(jsonArray.get(i), typeOfT, context);
+                            }
+                        }
+                        return list;
+                    }
+                });
+                //=======GSON高级用法===========//
             }
         });
     }
